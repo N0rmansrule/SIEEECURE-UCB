@@ -1,13 +1,19 @@
 # SIEEECure Project Outline
 Check out the [Project Overview](https://inst.eecs.berkeley.edu/~eecs151/fa25/static/fpga/project) to see the specs.
 
-**Checkpoint 1:** 3-Stage RISC-V (rv32ui) + floating point unit (FPU) Processor Block Design Diagram
+**CPU Block Diagram Design**
 
-**Checkpoint 2:** Full 3-Stage RISC-V (rv32ui) Processor Implementation
+**Encryption Block Design**
 
-**Checkpoint 3:** Floating point unit on FPGA
+**Verilog FPGA Design**
 
-**Checkpoint 4:** TBA
+**FPGA Implementation PCB Design**
+
+**Verilog ASIC Design**
+
+**ASIC Implementation PCB Design**
+
+**Tests and Verification**
 
 # Resources:
 - [RISC-V ISA Manual](https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf) (Sections 2.2 - 2.6)
