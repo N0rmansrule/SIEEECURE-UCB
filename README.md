@@ -1,4 +1,4 @@
-# EECS 151/251A FPGA Project Skeleton for Fall 2025
+# SIEEECure Project Outline
 Check out the [Project Overview](https://inst.eecs.berkeley.edu/~eecs151/fa25/static/fpga/project) to see the specs.
 
 **Checkpoint 1:** 3-Stage RISC-V (rv32ui) + floating point unit (FPU) Processor Block Design Diagram
