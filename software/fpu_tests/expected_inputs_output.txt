@@ -1,0 +1,25 @@
+FADD.S                
+FS1    FS2    FS3    RS1    output
+32'h3F80_0000    32'h3F80_0000    -    -    32'h4000_0000
+32'hC00C_CCCD    32'h400C_CCCD    -    -    32'h0000_0000
+32'h400C_CCCD    32'h400C_CCCD    -    -    32'h408C_CCCD
+32'h0000_0000    32'h0000_0000    -    -    32'h0000_0000
+32'h0000_0000    32'h400C_CCCD    -    -    32'h400C_CCCD
+32'h400C_CCCD    32'h0000_0000    -    -    32'h400C_CCCD
+32'h409A_E148    32'hBF57_0A3D    -    -    32'h4080_0000
+FMADD.S                
+FS1    FS2    FS3    RS1    output
+32'h400C_CCCD    32'h400C_CCCD    32'h0000_0000    -    32'h409A_E148
+32'h400C_CCCD    32'h400C_CCCD    32'hBF57_0A3D    -    32'h4080_0000
+32'h0000_0000    32'h400C_CCCD    32'h400C_CCCD    -    32'h400C_CCCD
+32'h400C_CCCD    32'h0000_0000    32'h400C_CCCD    -    32'h400C_CCCD
+FSGNJ.S                
+FS1    FS2    FS3    RS1    output
+32'h408E_147B    32'hBECC_CCCD    -    -    32'hC08E_147B
+32'hBECC_CCCD    32'h408E_147B    -    -    32'h3ECC_CCCD
+FCVT.S.W                
+FS1    FS2    FS3    RS1    output
+-    -    -    32'h0000_000F    32'hC170_0000
+-    -    -    32'hFFFF_FFF1    32'hC170_0000
+-    -    -    32'h0000_05DC    32'h44BB_8000
+-    -    -    0xFFFF_FC13    32'hC47B_4000
