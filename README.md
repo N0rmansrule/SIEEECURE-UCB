@@ -1,7 +1,7 @@
 # SIEEECure Project Outline
 Check out the [Project Overview](https://inst.eecs.berkeley.edu/~eecs151/fa25/static/fpga/project) to see the specs.
 
-**CPU Block Diagram Design**
+**CPU Block Diagram Design** (Currently Focusing on FPGA CPU implementation)
 
 **Encryption Block Design**
 
