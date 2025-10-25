@@ -1,8 +1,8 @@
 # SIEEECure Project Outline
 Check out the [FPGA - Project Overview](https://inst.eecs.berkeley.edu/~eecs151/fa25/static/fpga/project) and [ASIC - Project Overview](https://inst.eecs.berkeley.edu/~eecs151/fa25/static/asic/project/) to see the specs.
 
-**CPU Block Diagram Design** (Currently Focusing on FPGA CPU implementation)
-*Current Design (Work in Progress) https://drive.google.com/file/d/1tdzeu0AZM_9jz6gI-NM3BzAqqh0Cv2bQ/view?usp=sharing*
+**CPU Block Diagram Design** (Currently Focusing on FPGA CPU implementation)**
+Current Design (Work in Progress) (https://drive.google.com/file/d/1tdzeu0AZM_9jz6gI-NM3BzAqqh0Cv2bQ/view?usp=sharing)
 
 **Encryption Block Design**
 
@@ -24,3 +24,4 @@ Check out the [FPGA - Project Overview](https://inst.eecs.berkeley.edu/~eecs151/
 - [RISC-V ISA 32bit and 64bit Structures] (https://msyksphinz-self.github.io/riscv-isadoc/html/rvi.html)
 - [Sequestered Encryption for Hardware] ([https://ieeexplore.ieee.org/abstract/document/9935044](url))
 - [ASIC Encryption Example] (https://github.com/ucb-ee290c/sp21-aes-rocc-accel)
+- [Example RISCV CPU Implementation] (https://stnolting.github.io/neorv32/#_neorv32_central_processing_unit_cpu)
