@@ -16,9 +16,8 @@ Current Design (Work in Progress) (https://drive.google.com/file/d/1tdzeu0AZM_9j
 
 **Tests and Verification**
 
-# Resources:
-**Task List**
-[https://docs.google.com/spreadsheets/d/1walAEWDHxZTSH2PpXo3NRK0w-Gf8wQEKrzrvVh7HwGo/edit?usp=sharing](url)
+# Task List:
+https://docs.google.com/spreadsheets/d/1walAEWDHxZTSH2PpXo3NRK0w-Gf8wQEKrzrvVh7HwGo/edit?usp=sharing
 
 # Resources:
 - [RISC-V ISA 32bit and 64bit Structures] (https://msyksphinz-self.github.io/riscv-isadoc/html/rvi.html)
