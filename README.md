@@ -3,6 +3,7 @@ Check out the [FPGA - Project Overview](https://inst.eecs.berkeley.edu/~eecs151/
 
 **CPU Block Diagram Design** (Currently Focusing on FPGA CPU implementation)**
 Current Design (Work in Progress) (https://drive.google.com/file/d/1tdzeu0AZM_9jz6gI-NM3BzAqqh0Cv2bQ/view?usp=sharing)
+https://docs.google.com/presentation/d/1nTC-mkFau72CUAblkCYMHcaFrQtrW8fM_QqXUEoqdnI/edit?usp=sharing
 
 **Encryption Block Design**
 
