@@ -25,7 +25,7 @@ https://docs.google.com/spreadsheets/d/1walAEWDHxZTSH2PpXo3NRK0w-Gf8wQEKrzrvVh7H
 - [Example RISCV CPU Implementation] (https://stnolting.github.io/neorv32/#_neorv32_central_processing_unit_cpu)
 - [Example 5 Stage RISCV_CPU] (https://docs.google.com/presentation/d/1nTC-mkFau72CUAblkCYMHcaFrQtrW8fM_QqXUEoqdnI/edit?usp=sharing)
 - # ** Encryption Design **
-- [Sequestered Encryption for Hardware] ([https://ieeexplore.ieee.org/abstract/document/9935044](url))
+- [Sequestered Encryption for Hardware] ([[https://ieeexplore.ieee.org/abstract/document/9935044](url)](https://ieeexplore.ieee.org/abstract/document/9935044))
 - [ASIC Encryption Example] (https://github.com/ucb-ee290c/sp21-aes-rocc-accel)
 - [Block Cipher Modes of Operation] (https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation)
 - [AES 128 Bit Counter Mode of Operation (CTR)] (https://billatnapier.medium.com/ctr-mode-in-aes-1e3db1c74716)
