@@ -31,6 +31,17 @@ https://docs.google.com/spreadsheets/d/1walAEWDHxZTSH2PpXo3NRK0w-Gf8wQEKrzrvVh7H
 - [AES 128 Bit Counter Mode of Operation (CTR)] (https://billatnapier.medium.com/ctr-mode-in-aes-1e3db1c74716)
 - [AES 128 Bit Modes of Operation Tutorials] (https://cryptographyacademy.com/modes-of-operation/)
 - [AES 128 Bit Example] (https://www.kavaliro.com/wp-content/uploads/2014/03/AES.pdf)
-- [Geeks for Geeks AES Modes of Operation Article] (https://www.geeksforgeeks.org/ethical-hacking/block-cipher-modes-of-operation/)
+- [Geeks for Geeks AES Modes of Op[eration Article] (https://www.geeksforgeeks.org/ethical-hacking/block-cipher-modes-of-operation/)
 - [Simple AES128 in Verilog on Xilinx] (https://github.com/sumanth-kalluri/128-Bit-AES-Encryption-and-Decryption-in-Verilog)
 - [AES128, 196, 256 in Verilog] (https://github.com/michaelehab/AES-Verilog)
+- # ** FPGA Implementations of Caches in Verilog **
+- [Simple direct-mapped cache simulation on FPGA] (https://github.com/psnjk/SimpleCache)
+- [Advanced Material: Implementing Cache Controllers] (https://www.engr.colostate.edu/~sudeep/wp-content/uploads/CD5.9-P374493.pdf)
+- [Cache implemented on FPGA computer]
+-   https://blog.vidakovic.xyz/posts/2020/03/cache-implemented-on-my-fpga-computer/
+-   https://github.com/milanvidakovic/FPGAComputer32
+- [Verilog Caches] (https://github.com/airin711/Verilog-caches)
+- What are caches?
+-   See cs61c course site.
+-   https://www.geeksforgeeks.org/computer-science-fundamentals/cache-memory/
+-   https://www.cs.umd.edu/~meesh/cmsc411/CA-online/chapter/basics-of-cache-memory/index.html
