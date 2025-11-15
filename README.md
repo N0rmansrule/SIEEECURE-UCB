@@ -41,7 +41,7 @@ https://docs.google.com/spreadsheets/d/1walAEWDHxZTSH2PpXo3NRK0w-Gf8wQEKrzrvVh7H
 -   https://blog.vidakovic.xyz/posts/2020/03/cache-implemented-on-my-fpga-computer/
 -   https://github.com/milanvidakovic/FPGAComputer32
 - [Verilog Caches] (https://github.com/airin711/Verilog-caches)
-- What are caches?
--   See cs61c course site.
--   https://www.geeksforgeeks.org/computer-science-fundamentals/cache-memory/
--   https://www.cs.umd.edu/~meesh/cmsc411/CA-online/chapter/basics-of-cache-memory/index.html
+- # ** What are Caches **
+- See cs61c course site.
+- https://www.geeksforgeeks.org/computer-science-fundamentals/cache-memory/
+- https://www.cs.umd.edu/~meesh/cmsc411/CA-online/chapter/basics-of-cache-memory/index.html
