@@ -37,6 +37,7 @@ https://docs.google.com/spreadsheets/d/1walAEWDHxZTSH2PpXo3NRK0w-Gf8wQEKrzrvVh7H
 - [Geeks for Geeks AES Modes of Op[eration Article] (https://www.geeksforgeeks.org/ethical-hacking/block-cipher-modes-of-operation/)
 - [Simple AES128 in Verilog on Xilinx] (https://github.com/sumanth-kalluri/128-Bit-AES-Encryption-and-Decryption-in-Verilog)
 - [AES128, 196, 256 in Verilog] (https://github.com/michaelehab/AES-Verilog)
+- [Quantum Random Number Generation] (https://opg.optica.org/optcon/fulltext.cfm?uri=optcon-1-7-1572)
 - # ** FPGA Implementations of Caches in Verilog **
 - [Simple direct-mapped cache simulation on FPGA] (https://github.com/psnjk/SimpleCache)
 - [Advanced Material: Implementing Cache Controllers] (https://www.engr.colostate.edu/~sudeep/wp-content/uploads/CD5.9-P374493.pdf)
