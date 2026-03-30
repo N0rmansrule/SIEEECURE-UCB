@@ -1,0 +1,122 @@
+SIEEECURE Sequestered Encryption ISA Extension — Opcode Reference
+=================================================================
+
+Summary
+-------
+This project implements a *custom encrypted-register execution mode* using a
+Custom-0 RISC‑V opcode. The core has:
+
+- Normal integer register file: x0..x31 (64-bit)
+- Encrypted register file:     e0..e31 (128-bit ciphertext values)
+
+The encrypted register file holds ciphertext of the form:
+
+  ct[127:64] = ctr (tweak/counter)
+  ct[63:0]   = enc_payload
+
+A plaintext payload (64-bit) is recovered using an AES-CTR-like keystream:
+
+  ks  = AES_encrypt( {seed, ctr} )
+  pt  = enc_payload XOR ks[63:0]
+
+The SE unit decrypts operands, performs the operation on plaintext payloads,
+and re-encrypts the result into a fresh ciphertext (new ctr).
+
+-------------------------------------------------------------------------------
+Encoding
+-------------------------------------------------------------------------------
+All SE instructions use:
+
+  opcode = CUSTOM-0 = 0x0B  (0001011)
+
+funct3 selects the SE instruction class:
+
+  funct3=000 : SE.RTYPE (encrypted ALU/FP ops)
+  funct3=001 : SE.LD    (load 128-bit ciphertext into eRd)
+  funct3=010 : SE.SD    (store 128-bit ciphertext from eRs2)
+
+The register fields rd/rs1/rs2 are interpreted as **encrypted register indices**
+for SE.RTYPE and SE.LD/SE.SD where applicable.
+
+-------------------------------------------------------------------------------
+SE.RTYPE  (R-type)
+-------------------------------------------------------------------------------
+Format:
+  funct7 | eRs2 | eRs1 | funct3=000 | eRd | opcode=0x0B
+
+Mnemonic:
+  se.op   eRd, eRs1, eRs2
+
+funct7 selects the operation (se_pkg.sv):
+
+  0x00  SEOP_ADD   : pt = ptA + ptB
+  0x01  SEOP_SUB   : pt = ptA - ptB
+  0x02  SEOP_XOR   : pt = ptA ^ ptB
+  0x03  SEOP_AND   : pt = ptA & ptB
+  0x04  SEOP_OR    : pt = ptA | ptB
+  0x05  SEOP_SLL   : pt = ptA << (ptB[5:0])
+  0x06  SEOP_SRL   : pt = ptA >> (ptB[5:0])
+  0x07  SEOP_SRA   : pt = signed(ptA) >>> (ptB[5:0])
+
+Optional FP payload ops (payload interpreted as IEEE‑754 FP64):
+  0x10  SEOP_FADD  : fp64(ptA) + fp64(ptB)
+  0x11  SEOP_FMUL  : fp64(ptA) * fp64(ptB)
+
+Notes:
+- SE.RTYPE is long-latency in this educational core because it reuses a single
+  AES encryption engine to generate keystream blocks.
+- For higher throughput, the SE unit can be upgraded to multiple pipelined AES
+  lanes (not included here).
+
+-------------------------------------------------------------------------------
+SE.LD  (I-type) — load ciphertext
+-------------------------------------------------------------------------------
+Format:
+  imm[11:0] | xRs1 | funct3=001 | eRd | opcode=0x0B
+
+Mnemonic:
+  se.ld   eRd, imm(xRs1)
+
+Behavior:
+- Computes address = x[xRs1] + sext(imm)
+- Loads 16 bytes from memory into ciphertext register eRd.
+
+Alignment:
+- Address must be 16-byte aligned; otherwise a misaligned load trap is raised.
+
+-------------------------------------------------------------------------------
+SE.SD  (S-type) — store ciphertext
+-------------------------------------------------------------------------------
+Format:
+  imm[11:5] | eRs2 | xRs1 | funct3=010 | imm[4:0] | opcode=0x0B
+
+Mnemonic:
+  se.sd   eRs2, imm(xRs1)
+
+Behavior:
+- Computes address = x[xRs1] + sext(imm)
+- Stores ciphertext register eRs2 (16 bytes) to memory.
+
+Alignment:
+- Address must be 16-byte aligned; otherwise a misaligned store trap is raised.
+
+-------------------------------------------------------------------------------
+CSR interface for SE control + keying (custom CSR range 0x7C0+)
+-------------------------------------------------------------------------------
+The core exposes custom CSRs:
+
+  0x7C0  se_ctrl   (bit0: se_enable, bits[2:1]: key_len_sel (optional))
+  0x7C1  se_key0   (least significant 64 bits)
+  0x7C2  se_key1
+  0x7C3  se_key2
+  0x7C4  se_key3   (most significant 64 bits)
+  0x7C5  se_seed   (64-bit seed used in {seed,ctr} AES input)
+
+Key length selection:
+- The SE unit is parameterized at build time (AES_KEY_BITS = 128/192/256).
+- The core slices the se_key CSRs accordingly and loads that into the AES engine.
+
+Enabling SE:
+- Set se_ctrl[0]=1 before executing SE instructions.
+- If se_ctrl[0]=0, SE instructions trap as illegal.
+

@@ -1,0 +1,69 @@
+# constraints/ecp5_bg381_vga_template.lpf
+# ---------------------------------------------------------------------------
+# TEMPLATE ONLY — you MUST replace SITE pins with your custom board's pinout.
+#
+# Target FPGA: LFE5U-85F-6BG381C (ECP5-85K), CABGA381, speed grade 6
+# Top module:  ecp5_quad_gpu_top
+#
+# Video: VGA-style parallel RGB + HS/VS
+# If you are doing HDMI, these signals should feed a TMDS encoder/serializer.
+# ---------------------------------------------------------------------------
+
+# Clock input (example placeholder)
+# LOCATE COMP "clk_in" SITE "<PIN_NAME>";
+# IOBUF PORT "clk_in" IO_TYPE=LVCMOS33;
+# FREQUENCY PORT "clk_in" 25 MHz;
+
+# Reset input (active-low)
+# LOCATE COMP "rst_n" SITE "<PIN_NAME>";
+# IOBUF PORT "rst_n" IO_TYPE=LVCMOS33 PULLMODE=UP;
+
+# Optional external IRQs per core (ext_irq[3:0])
+# LOCATE COMP "ext_irq[0]" SITE "<PIN_NAME>";
+# LOCATE COMP "ext_irq[1]" SITE "<PIN_NAME>";
+# LOCATE COMP "ext_irq[2]" SITE "<PIN_NAME>";
+# LOCATE COMP "ext_irq[3]" SITE "<PIN_NAME>";
+# IOBUF PORT "ext_irq[0]" IO_TYPE=LVCMOS33 PULLMODE=DOWN;
+# IOBUF PORT "ext_irq[1]" IO_TYPE=LVCMOS33 PULLMODE=DOWN;
+# IOBUF PORT "ext_irq[2]" IO_TYPE=LVCMOS33 PULLMODE=DOWN;
+# IOBUF PORT "ext_irq[3]" IO_TYPE=LVCMOS33 PULLMODE=DOWN;
+
+# VGA sync
+# LOCATE COMP "vga_hsync" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_vsync" SITE "<PIN_NAME>";
+# IOBUF PORT "vga_hsync" IO_TYPE=LVCMOS33 DRIVE=8 SLEWRATE=FAST;
+# IOBUF PORT "vga_vsync" IO_TYPE=LVCMOS33 DRIVE=8 SLEWRATE=FAST;
+
+# VGA RGB buses (8-bit each)
+# -- Red
+# LOCATE COMP "vga_r[0]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_r[1]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_r[2]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_r[3]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_r[4]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_r[5]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_r[6]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_r[7]" SITE "<PIN_NAME>";
+# -- Green
+# LOCATE COMP "vga_g[0]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_g[1]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_g[2]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_g[3]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_g[4]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_g[5]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_g[6]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_g[7]" SITE "<PIN_NAME>";
+# -- Blue
+# LOCATE COMP "vga_b[0]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_b[1]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_b[2]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_b[3]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_b[4]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_b[5]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_b[6]" SITE "<PIN_NAME>";
+# LOCATE COMP "vga_b[7]" SITE "<PIN_NAME>";
+
+# I/O standards for the RGB buses
+# IOBUF PORT "vga_r[*]" IO_TYPE=LVCMOS33 DRIVE=8 SLEWRATE=FAST;
+# IOBUF PORT "vga_g[*]" IO_TYPE=LVCMOS33 DRIVE=8 SLEWRATE=FAST;
+# IOBUF PORT "vga_b[*]" IO_TYPE=LVCMOS33 DRIVE=8 SLEWRATE=FAST;

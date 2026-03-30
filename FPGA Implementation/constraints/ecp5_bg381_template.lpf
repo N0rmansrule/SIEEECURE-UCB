@@ -1,0 +1,19 @@
+# constraints/ecp5_bg381_template.lpf
+# ---------------------------------------------------------------------------
+# TEMPLATE ONLY — you MUST replace SITE pins with your board's pinout.
+# LFE5U-85F-6BG381C (ECP5-85K), package CABGA381, speed grade 6
+# ---------------------------------------------------------------------------
+
+# Clock input (example placeholder)
+# LOCATE COMP "clk" SITE "<PIN_NAME>";
+# IOBUF PORT "clk" IO_TYPE=LVCMOS33;
+# FREQUENCY PORT "clk" 50 MHz;
+
+# Reset input (example placeholder)
+# LOCATE COMP "rst" SITE "<PIN_NAME>";
+# IOBUF PORT "rst" IO_TYPE=LVCMOS33 PULLMODE=UP;
+
+# Example LED output (optional)
+# LOCATE COMP "led0" SITE "<PIN_NAME>";
+# IOBUF PORT "led0" IO_TYPE=LVCMOS33 DRIVE=8 SLEWRATE=FAST;
+

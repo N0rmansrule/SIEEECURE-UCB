@@ -1,0 +1,47 @@
+SE-GPU PLAIN COMMAND SET
+========================
+
+Packet width
+------------
+Plain command packet is carried in the lower 64 bits of a 128-bit word.
+The upper 64 bits are ignored in plain mode.
+
+Payload encoding [63:0]
+-----------------------
+[63:56] opcode
+[55:52] color / tile / misc nibble
+[47:40] x0
+[39:32] y0
+[31:24] x1 / width
+[23:16] y1 / height
+[15:0]  misc / reserved
+
+Supported commands
+------------------
+0x00 GPU_NOP
+  No operation.
+
+0x01 GPU_CLEAR
+  Clear the internal framebuffer / tile-space to the given color.
+  color = payload[55:52]
+
+0x02 GPU_SET_PIXEL
+  Set one pixel/cell at (x0,y0) to color.
+
+0x03 GPU_FILL_RECT
+  Fill rectangle from (x0,y0) with width=x1 and height=y1 using color.
+
+0x04 GPU_SET_TILE
+  Set one tile/cell at (x0,y0) to color/tile value.
+  In the tiny Tetris renderer this is used to paint board cells.
+
+0x05 GPU_PRESENT
+  Fence marker / end-of-batch hint.
+  Optional in the current RTL, reserved for software-friendly flow control.
+
+Normal GPU use model
+--------------------
+- CPU computes draw commands in plaintext.
+- CPU writes command packets to the GPU MMIO / FIFO.
+- GPU executes commands and updates its internal tile/pixel memory.
+- Renderer scans internal memory to VGA/HDMI pipeline.

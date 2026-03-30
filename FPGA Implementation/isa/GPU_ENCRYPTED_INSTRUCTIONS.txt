@@ -1,0 +1,41 @@
+SE-GPU ENCRYPTED COMMAND SET
+============================
+
+Cipher packet format [127:0]
+----------------------------
+[127:64] ctr         unique per-command counter / tweak
+[63:0]   enc_payload payload XOR keystream[63:0]
+
+Keystream generation
+--------------------
+keystream = AES_encrypt({seed, ctr})
+payload   = enc_payload XOR keystream[63:0]
+
+This mirrors the compact SE approach already used by the CPU-side
+SIEEECURE execution path: ciphertext stays outside the trusted decrypt /
+execute region, while plaintext only exists transiently inside the GPU command
+decode pipeline.
+
+Supported encrypted commands
+----------------------------
+The plaintext payload decodes exactly like the plain GPU commands:
+- GPU_NOP      0x00
+- GPU_CLEAR    0x01
+- GPU_SET_PIXEL 0x02
+- GPU_FILL_RECT 0x03
+- GPU_SET_TILE  0x04
+- GPU_PRESENT   0x05
+
+Recommended keying flow
+-----------------------
+- se_key_manager selects manual / QRNG / photonic / mixed entropy source.
+- entropy_conditioner emits key_out + seed_out.
+- key_update pulse is faned out to CPU SE units and the SE-GPU.
+- All encrypted command streams after the pulse use the new key / seed.
+
+Entropy selection modes
+-----------------------
+00 manual/static key path
+01 QRNG-derived key path
+10 photonic-derived key path
+11 QRNG XOR photonic mixed path

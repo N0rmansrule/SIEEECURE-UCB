@@ -1,0 +1,150 @@
+RV64I (+Zicsr/+Zifencei + M-mode SYSTEM used by this core) — Opcode Reference
+=============================================================================
+
+Notes
+-----
+- This core implements: RV64I + RV64M + Zicsr + Zifencei + RV64 “W” subset.
+- Instruction length: **32-bit only** (no compressed C extension in this repo).
+- Fields:
+  - opcode: instr[6:0]
+  - funct3: instr[14:12]
+  - funct7: instr[31:25] (R-type / shifts / M-extension)
+- Hex shown for opcode is the 7-bit value placed in bits [6:0].
+
+Legend
+------
+R-type:  funct7 | rs2 | rs1 | funct3 | rd | opcode
+I-type:  imm[11:0] | rs1 | funct3 | rd | opcode
+S-type:  imm[11:5] | rs2 | rs1 | funct3 | imm[4:0] | opcode
+B-type:  imm[12|10:5] | rs2 | rs1 | funct3 | imm[4:1|11] | opcode
+U-type:  imm[31:12] | rd | opcode
+J-type:  imm[20|10:1|11|19:12] | rd | opcode
+
+-------------------------------------------------------------------------------
+U-TYPE (LUI/AUIPC)
+-------------------------------------------------------------------------------
+LUI      rd, imm20      opcode=0x37 (0110111)   U-type  x[rd] = sext(imm20<<12)
+AUIPC    rd, imm20      opcode=0x17 (0010111)   U-type  x[rd] = pc + sext(imm20<<12)
+
+-------------------------------------------------------------------------------
+JUMPS
+-------------------------------------------------------------------------------
+JAL      rd, imm21      opcode=0x6F (1101111)   J-type  x[rd]=pc+4; pc+=sext(imm)
+JALR     rd, rs1, imm   opcode=0x67 (1100111)   I-type  funct3=000; pc=(x[rs1]+imm)&~1
+
+-------------------------------------------------------------------------------
+BRANCHES (opcode=0x63 / 1100011)
+-------------------------------------------------------------------------------
+BEQ      rs1, rs2, imm  funct3=000
+BNE      rs1, rs2, imm  funct3=001
+BLT      rs1, rs2, imm  funct3=100
+BGE      rs1, rs2, imm  funct3=101
+BLTU     rs1, rs2, imm  funct3=110
+BGEU     rs1, rs2, imm  funct3=111
+
+-------------------------------------------------------------------------------
+LOADS (opcode=0x03 / 0000011)
+-------------------------------------------------------------------------------
+LB       rd, imm(rs1)   funct3=000  (sign-extend 8)
+LH       rd, imm(rs1)   funct3=001  (sign-extend 16)
+LW       rd, imm(rs1)   funct3=010  (sign-extend 32)
+LD       rd, imm(rs1)   funct3=011  (sign-extend 64)
+LBU      rd, imm(rs1)   funct3=100  (zero-extend 8)
+LHU      rd, imm(rs1)   funct3=101  (zero-extend 16)
+LWU      rd, imm(rs1)   funct3=110  (zero-extend 32)
+
+-------------------------------------------------------------------------------
+STORES (opcode=0x23 / 0100011)
+-------------------------------------------------------------------------------
+SB       rs2, imm(rs1)  funct3=000
+SH       rs2, imm(rs1)  funct3=001
+SW       rs2, imm(rs1)  funct3=010
+SD       rs2, imm(rs1)  funct3=011
+
+-------------------------------------------------------------------------------
+OP-IMM (opcode=0x13 / 0010011)
+-------------------------------------------------------------------------------
+ADDI     rd, rs1, imm   funct3=000
+SLTI     rd, rs1, imm   funct3=010
+SLTIU    rd, rs1, imm   funct3=011
+XORI     rd, rs1, imm   funct3=100
+ORI      rd, rs1, imm   funct3=110
+ANDI     rd, rs1, imm   funct3=111
+SLLI     rd, rs1, shamt funct3=001  funct7=0000000  shamt[5:0] in RV64
+SRLI     rd, rs1, shamt funct3=101  funct7=0000000
+SRAI     rd, rs1, shamt funct3=101  funct7=0100000
+
+-------------------------------------------------------------------------------
+OP (opcode=0x33 / 0110011)
+-------------------------------------------------------------------------------
+ADD      rd, rs1, rs2   funct3=000  funct7=0000000
+SUB      rd, rs1, rs2   funct3=000  funct7=0100000
+SLL      rd, rs1, rs2   funct3=001  funct7=0000000
+SLT      rd, rs1, rs2   funct3=010  funct7=0000000
+SLTU     rd, rs1, rs2   funct3=011  funct7=0000000
+XOR      rd, rs1, rs2   funct3=100  funct7=0000000
+SRL      rd, rs1, rs2   funct3=101  funct7=0000000
+SRA      rd, rs1, rs2   funct3=101  funct7=0100000
+OR       rd, rs1, rs2   funct3=110  funct7=0000000
+AND      rd, rs1, rs2   funct3=111  funct7=0000000
+
+-------------------------------------------------------------------------------
+RV64 "W" IMMEDIATE OPS (opcode=0x1B / 0011011)
+-------------------------------------------------------------------------------
+ADDIW    rd, rs1, imm   funct3=000  (result is sign-extended from 32-bit)
+SLLIW    rd, rs1, shamt funct3=001  funct7=0000000 (shamt[4:0])
+SRLIW    rd, rs1, shamt funct3=101  funct7=0000000
+SRAIW    rd, rs1, shamt funct3=101  funct7=0100000
+
+-------------------------------------------------------------------------------
+RV64 "W" REGISTER OPS (opcode=0x3B / 0111011)
+-------------------------------------------------------------------------------
+ADDW     rd, rs1, rs2   funct3=000  funct7=0000000
+SUBW     rd, rs1, rs2   funct3=000  funct7=0100000
+SLLW     rd, rs1, rs2   funct3=001  funct7=0000000
+SRLW     rd, rs1, rs2   funct3=101  funct7=0000000
+SRAW     rd, rs1, rs2   funct3=101  funct7=0100000
+
+-------------------------------------------------------------------------------
+MISC-MEM (opcode=0x0F / 0001111)
+-------------------------------------------------------------------------------
+FENCE    pred,succ      funct3=000  (ordering barrier)
+FENCE.I                 funct3=001  (sync I$ with stores to code)
+
+-------------------------------------------------------------------------------
+SYSTEM / CSR (opcode=0x73 / 1110011)
+-------------------------------------------------------------------------------
+ECALL                  funct3=000  imm12=0x000   (0x00000073)
+EBREAK                 funct3=000  imm12=0x001   (0x00100073)
+
+CSR ops (I-type, csr=instr[31:20]):
+CSRRW   rd, csr, rs1   funct3=001
+CSRRS   rd, csr, rs1   funct3=010
+CSRRC   rd, csr, rs1   funct3=011
+CSRRWI  rd, csr, uimm  funct3=101   (uimm in rs1 field)
+CSRRSI  rd, csr, uimm  funct3=110
+CSRRCI  rd, csr, uimm  funct3=111
+
+Privileged (M-mode) encodings used by this core:
+MRET                  funct3=000  imm12=0x302   (0x30200073)
+WFI                   funct3=000  imm12=0x105   (0x10500073)
+
+-------------------------------------------------------------------------------
+RV64M (Multiply/Divide) — OP opcode=0x33 funct7=0000001
+-------------------------------------------------------------------------------
+MUL     rd, rs1, rs2   funct3=000
+MULH    rd, rs1, rs2   funct3=001
+MULHSU  rd, rs1, rs2   funct3=010
+MULHU   rd, rs1, rs2   funct3=011
+DIV     rd, rs1, rs2   funct3=100  (signed)
+DIVU    rd, rs1, rs2   funct3=101  (unsigned)
+REM     rd, rs1, rs2   funct3=110  (signed)
+REMU    rd, rs1, rs2   funct3=111  (unsigned)
+
+RV64M word ops — OP-32 opcode=0x3B funct7=0000001
+MULW    rd, rs1, rs2   funct3=000
+DIVW    rd, rs1, rs2   funct3=100  (signed)
+DIVUW   rd, rs1, rs2   funct3=101  (unsigned)
+REMW    rd, rs1, rs2   funct3=110  (signed)
+REMUW   rd, rs1, rs2   funct3=111  (unsigned)
+

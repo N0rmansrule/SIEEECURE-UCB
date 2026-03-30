@@ -1,0 +1,43 @@
+# -----------------------------------------------------------------------------
+# ECP5 BG381 placeholder constraints for the quad-core + entropy + GPU + Tetris top
+# Top module: ecp5_quad_entropy_gpu_tetris_top
+# Replace all PACKAGE_PIN values with your custom board pinout.
+# -----------------------------------------------------------------------------
+
+LOCATE COMP "clk_in" SITE "<PIN_CLK>";
+IOBUF PORT "clk_in" IO_TYPE=LVCMOS33;
+
+LOCATE COMP "rst_n" SITE "<PIN_RST_N>";
+IOBUF PORT "rst_n" IO_TYPE=LVCMOS33 PULLMODE=UP;
+
+# Entropy select straps / MCU GPIOs
+LOCATE COMP "entropy_sel[0]" SITE "<PIN_ENTROPY_SEL0>";
+LOCATE COMP "entropy_sel[1]" SITE "<PIN_ENTROPY_SEL1>";
+IOBUF PORT "entropy_sel[0]" IO_TYPE=LVCMOS33;
+IOBUF PORT "entropy_sel[1]" IO_TYPE=LVCMOS33;
+
+# QRNG entropy byte + valid
+LOCATE COMP "qrng_valid" SITE "<PIN_QRNG_VALID>";
+IOBUF PORT "qrng_valid" IO_TYPE=LVCMOS33;
+
+# Photon entropy byte + valid
+LOCATE COMP "photon_valid" SITE "<PIN_PHOTON_VALID>";
+IOBUF PORT "photon_valid" IO_TYPE=LVCMOS33;
+
+# Tetris/CPU control pins (optional)
+LOCATE COMP "cpu_ctrl_valid" SITE "<PIN_CPU_CTRL_VALID>";
+IOBUF PORT "cpu_ctrl_valid" IO_TYPE=LVCMOS33;
+
+# LEDs
+LOCATE COMP "led[0]" SITE "<PIN_LED0>";
+LOCATE COMP "led[1]" SITE "<PIN_LED1>";
+LOCATE COMP "led[2]" SITE "<PIN_LED2>";
+LOCATE COMP "led[3]" SITE "<PIN_LED3>";
+LOCATE COMP "led[4]" SITE "<PIN_LED4>";
+LOCATE COMP "led[5]" SITE "<PIN_LED5>";
+LOCATE COMP "led[6]" SITE "<PIN_LED6>";
+LOCATE COMP "led[7]" SITE "<PIN_LED7>";
+
+# VGA
+LOCATE COMP "vga_hsync" SITE "<PIN_VGA_HSYNC>";
+LOCATE COMP "vga_vsync" SITE "<PIN_VGA_VSYNC>";

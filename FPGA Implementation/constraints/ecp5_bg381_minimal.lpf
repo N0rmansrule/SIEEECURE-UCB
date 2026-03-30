@@ -1,0 +1,40 @@
+# -----------------------------------------------------------------------------
+# ecp5_bg381_minimal.lpf (TEMPLATE)
+#
+# Target: LFE5U-85F-6BG381C (CABGA381 / speed 6)
+#
+# IMPORTANT:
+# - You MUST replace the PIN names with your board's actual pinout.
+# - Use your board schematic/pinout documentation.
+#
+# This file is a starting point for the `ecp5_top` module.
+# -----------------------------------------------------------------------------
+
+# Example clock constraint (edit frequency for your oscillator)
+# FREQUENCY PORT "clk_in" 25.000 MHz;
+
+# Pin assignments (PLACEHOLDERS - replace with real pins!)
+# LOCATE COMP "clk_in" SITE "A1";
+# IOBUF PORT "clk_in" IO_TYPE=LVCMOS33;
+
+# LOCATE COMP "rst_n" SITE "B1";
+# IOBUF PORT "rst_n" IO_TYPE=LVCMOS33;
+
+# LEDs (placeholder pins)
+# LOCATE COMP "led[0]" SITE "C1";
+# LOCATE COMP "led[1]" SITE "C2";
+# LOCATE COMP "led[2]" SITE "C3";
+# LOCATE COMP "led[3]" SITE "C4";
+# LOCATE COMP "led[4]" SITE "D1";
+# LOCATE COMP "led[5]" SITE "D2";
+# LOCATE COMP "led[6]" SITE "D3";
+# LOCATE COMP "led[7]" SITE "D4";
+#
+# IOBUF PORT "led[0]" IO_TYPE=LVCMOS33;
+# IOBUF PORT "led[1]" IO_TYPE=LVCMOS33;
+# IOBUF PORT "led[2]" IO_TYPE=LVCMOS33;
+# IOBUF PORT "led[3]" IO_TYPE=LVCMOS33;
+# IOBUF PORT "led[4]" IO_TYPE=LVCMOS33;
+# IOBUF PORT "led[5]" IO_TYPE=LVCMOS33;
+# IOBUF PORT "led[6]" IO_TYPE=LVCMOS33;
+# IOBUF PORT "led[7]" IO_TYPE=LVCMOS33;

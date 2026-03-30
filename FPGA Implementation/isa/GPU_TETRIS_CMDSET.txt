@@ -1,0 +1,58 @@
+GPU_TETRIS_CMDSET.txt
+=====================
+
+This project includes a tiny FPGA-friendly 2D "GPU" used to render a Tetris-board demo.
+It is **NOT** a full framebuffer or 3D GPU.
+
+The GPU consumes a stream of 128-bit *command entries*. Each entry is either plaintext
+(normal mode) or ciphertext (encrypted mode).
+
+Command entry format (128-bit)
+------------------------------
+  entry[127:64] = ctr (64-bit counter)
+  entry[63:0]   = payload (64-bit command payload)
+
+Payload format (64-bit)
+-----------------------
+  [63:56] opcode
+  [55:52] value   (tile id / color, 0..15)
+  [51:48] x       (0..15, only 0..9 used for the 10-wide board)
+  [47:43] y       (0..31, only 0..19 used for the 20-high board)
+  [15:0]  misc    (used by WAIT as the number of frames)
+
+Opcodes
+-------
+  0x00 GPUCMD_NOP
+      No operation. Advance to next command.
+
+  0x01 GPUCMD_CLEAR
+      Clear the entire 10x20 board to 0 (empty).
+
+  0x02 GPUCMD_SET_CELL
+      Set a single cell at (x,y) to `value`.
+      - if x>=10 or y>=20, the command is ignored.
+
+  0x03 GPUCMD_WAIT
+      Wait `misc` frames before advancing to the next command.
+      (frame = one VGA frame, detected at x==0,y==0 in the timing generator)
+
+  0xFF GPUCMD_END
+      Stop command processing; hold the last frame.
+
+Example (plaintext)
+-------------------
+  CLEAR:
+    payload = 0x01_00_00_00_0000_0000
+
+  SET_CELL x=4,y=0,value=1:
+    opcode=0x02, value=1, x=4, y=0
+    payload = (0x02<<56) | (1<<52) | (4<<48) | (0<<43)
+
+  WAIT 4 frames:
+    payload = (0x03<<56) | 4
+
+Where it lives in the RTL
+-------------------------
+  - `rtl/gpu/gpu_tetris_engine.sv`  (command processor + renderer)
+  - `rtl/gpu/tetris_cmd_rom_plain.sv` (demo command ROM)
+  - `rtl/gpu/tetris_cmd_rom_enc.sv`   (same demo, encrypted)

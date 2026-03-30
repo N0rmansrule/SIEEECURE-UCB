@@ -1,0 +1,37 @@
+GPU_TETRIS_CMDSET_ENCRYPTED.txt
+===============================
+
+Encrypted command mode for the tiny Tetris GPU uses the same *shape* of encryption
+as the CPU's SIEEECURE "sequestered encryption" (SE) datapath:
+
+  keystream = AES_encrypt( { seed[63:0], ctr[63:0] } )
+  payload   = enc_payload XOR keystream[63:0]
+
+Command entry format (128-bit)
+------------------------------
+  entry[127:64] = ctr (64-bit counter)
+  entry[63:0]   = enc_payload (ciphertext of the 64-bit payload)
+
+Notes on byte ordering (matches rtl/se/aes_enc_core.sv)
+-------------------------------------------------------
+  - The 128-bit AES input block is treated as 16 bytes where:
+      byte0 = block_in[127:120]  (MSB)
+      ...
+      byte15 = block_in[7:0]     (LSB)
+  - The GPU uses keystream[63:0], which corresponds to the *last 8 bytes*
+    of the AES output block.
+
+Default demo key/seed (as shipped)
+----------------------------------
+  KEY  (AES-128): 0x000102030405060708090A0B0C0D0E0F
+  SEED (64-bit) : 0x1122334455667788
+
+Generating an encrypted ROM
+---------------------------
+The included `rtl/gpu/tetris_cmd_rom_enc.sv` was generated with:
+
+  enc_payload = payload XOR AES_ECB(KEY).encrypt( seed||ctr )[8:16]
+
+(i.e., XOR with the low 64 bits / last 8 bytes of the AES output)
+
+If you change KEY or SEED, regenerate the encrypted ROM.
